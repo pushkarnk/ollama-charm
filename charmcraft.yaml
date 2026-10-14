@@ -1,0 +1,29 @@
+name: ollama-snap
+type: charm
+title: Ollama
+summary: Ollama (snap) serving a model over HTTP.
+description: Installs the ollama snap, pulls the configured model and publishes its URL and name.
+
+base: ubuntu@24.04
+platforms:
+  amd64:
+
+parts:
+  charm:
+    plugin: charm
+    source: .
+
+provides:
+  ollama:
+    interface: ollama_api   # app databag: url, model
+
+config:
+  options:
+    model:
+      type: string
+      default: nomic-embed-text
+      description: Model to pull and publish.
+    port:
+      type: int
+      default: 11434
+      description: Port Ollama listens on.
